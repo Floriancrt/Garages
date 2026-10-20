@@ -1,79 +1,72 @@
-# Garages : adresses email OpenStreetMap
+# Garages : emails OSM vérifiés directement par Overpass
 
 - [Télécharger le classeur Excel](https://github.com/Floriancrt/Garages/raw/refs/heads/main/exports/Garages_emails_OSM.xlsx)
 - [Télécharger le CSV enrichi](https://github.com/Floriancrt/Garages/raw/refs/heads/main/exports/Garages_emails_OSM.csv)
-- [Consulter le bilan du rapprochement](bilan_rapprochement.json)
+- [Bilan des contrôles et du rapprochement](bilan_rapprochement.json)
+- [Traçabilité de la collecte Overpass](collecte_overpass.json) et [requêtes exécutées](overpass_requetes/)
 
-## Résultat après audit
+## Résultat
 
-| Indicateur | Résultat |
+| Indicateur | Valeur |
 | --- | ---: |
 | Lignes d’origine conservées | 102 755 |
-| Garages avec au moins un email attribué | 1 394 |
-| Adresses email distinctes | 1 360 |
-| Cellules email renseignées | 1 396 |
-| Première livraison : garages avec email | 952 |
-| Augmentation nette | 442 (+46,4 %) |
-| Nouvelles lignes renseignées | 451 |
-| Anciennes attributions retirées après contrôle | 9 |
-| Lignes avec des candidats non attribués | 895 |
+| Garages avec au moins un email attribué | 1 396 |
+| Adresses email distinctes attribuées | 1 362 |
+| Cellules email renseignées | 1 398 |
+| Lignes avec plusieurs emails | 2 |
+| Livraison précédente après correction du rapprochement | 1 394 |
+| Nouvelles lignes renseignées depuis cette livraison | 2 |
+| Anciennes attributions retirées | 0 |
+| Candidats séparés, non attribués | 1 178 |
 
-Le classeur comprend **Bilan et sources**, **Tous les garages**, **Avec email**
-et **À vérifier**. Ce dernier onglet contient 1178 candidats pour
-895 lignes : ces emails nécessitent une vérification et ne sont pas
-attribués aux garages dans les colonnes email du fichier principal.
-Le CSV complet utilise le point-virgule et l’encodage UTF-8 avec BOM.
+Le classeur comporte **Bilan et sources**, **Tous les garages**, **Avec email**
+et **À vérifier**. Les candidats de ce dernier onglet ne sont pas attribués
+dans les colonnes email du fichier principal. Plusieurs adresses pour un
+même établissement sont réparties dans plusieurs colonnes ; les cellules
+restent vides si aucune attribution suffisamment fiable n’est possible.
+Le CSV utilise le point-virgule et UTF-8 avec BOM.
 
-## Corrections du rapprochement
+## Collecte directe Overpass
 
-La première méthode rejetait certaines variantes de voies et annotations de
-zones industrielles. L’audit a ajouté leur normalisation, les articles et
-abréviations usuelles, les variantes de noms commerciaux et d’opérateurs, ainsi
-que le rapprochement des objets OSM décrivant un même établissement. Les noms
-partageant uniquement une commune ou des termes génériques de l’automobile
-ne suffisent pas à attribuer un email.
+Les tags des objets utilisés dans cette livraison proviennent des réponses
+de `https://overpass-api.de/api/interpreter`, obtenues le 20 octobre 2026.
+Les 8 réponses utilisées sont complètes, sans message
+d’interruption. Leurs empreintes SHA-256, dates et requêtes sont archivées
+dans le bilan de collecte. Les tags du jeu consolidé ont été comparés aux
+réponses API avant publication, puis chaque email attribué a été vérifié
+dans les tags actifs de ses sources OSM citées.
 
-Les SIRET du CSV sont arrondis en notation scientifique. Ils restent inchangés
-et ne sont jamais traités comme des SIRET complets. Une compatibilité à la
-précision disponible doit être corroborée par l’adresse, la voie ou l’identité
-et la localité. Les contradictions géographiques ou d’identifiants et les
-correspondances ambiguës sont écartées.
+Réinterrogation directe par identifiant OSM des objets et candidats automobiles repérés dans les extraits précédents, complétée par les lots géographiques Overpass réussis.
 
-## Limites de la source
+Les extraits Geofabrik et OpenStreetMap France de la livraison précédente
+servent à repérer les identifiants des objets supplémentaires à réinterroger.
+Leurs emails ne sont pas recopiés comme résultats Overpass : les tags et
+emails de cette livraison ont été obtenus à nouveau par l’API.
 
-Overpass est un moteur de requêtes sur OpenStreetMap : il consulte les mêmes
-données et n’apporte pas une seconde base d’emails.
-Le contrôle des 12 extraits a recensé **20 707 objets `shop=car_repair`, dont
-2 684 avec un email actif exploitable (environ 13 %)**. Sur l’ensemble des
-catégories automobiles contrôlées, 38 970 objets ont été recensés, dont
-5 449 avec un email actif exploitable. Ces catégories cartographiques ne
-recouvrent pas exactement les codes NAF du CSV SIRENE.
+Les requêtes géographiques nationales et les lots les plus denses ont expiré. Les objets déjà repérés ont été réinterrogés par identifiant ; cette collecte ne constitue pas une nouvelle recherche géographique exhaustive.
 
-Les données proviennent exclusivement d’emails publiés dans OSM. Aucune
-recherche d’email sur les sites des entreprises n’a été réalisée. Les extraits
-Geofabrik et OpenStreetMap France contiennent des données du 19 octobre 2026 ;
-ils ont été téléchargés lorsque les serveurs Overpass étaient indisponibles.
-La localisation complémentaire utilise les contours officiels des communes.
+Overpass interroge la base OpenStreetMap. Une nouvelle collecte via cette
+API peut confirmer les mêmes emails que les extraits OSM précédents.
+Aucune recherche sur les sites des entreprises n’a été effectuée.
 
-Les liens sources et la méthode figurent dans les fichiers. L’actualité et la
-délivrabilité des emails ne sont pas vérifiées. Une cellule vide signifie
-qu’aucune attribution suffisamment fiable n’a été réalisée ; elle ne prouve
-pas que le garage n’a pas d’email.
+## Rapprochement et contrôles
 
-## Contrôles et attribution
+Le rapprochement utilise les adresses normalisées, les variantes de noms et
+les localités corroborées. Les SIRET du CSV sont arrondis en notation
+scientifique : ils restent inchangés et ne sont jamais traités comme des
+identifiants complets. Leur compatibilité doit être corroborée par l’adresse,
+la voie ou l’identité et la localité. Les contradictions et ambiguïtés sont
+écartées. La localisation complémentaire utilise les contours officiels des
+communes de https://geo.api.gouv.fr/.
 
-Les 102 755 lignes et leurs champs d’origine ont été vérifiés, ainsi que
-la présence de chaque email attribué dans les tags actifs des objets OSM
-cités, les contradictions géographiques ou d’identifiants, l’intégrité du
-classeur et la séparation des candidats à vérifier. Les empreintes des
-fichiers et les décomptes sont dans le bilan JSON.
+Les 102 755 lignes et champs d’origine sont conservés. Les contrôles
+portent aussi sur l’origine API de tous les tags, la présence des emails dans
+les tags actifs, les contradictions géographiques et d’identifiants,
+l’intégrité du classeur et la séparation des candidats à vérifier.
+L’actualité et la délivrabilité des emails ne sont pas vérifiées. Une cellule
+vide ne prouve pas qu’un établissement n’a pas d’email.
 
 Données email : © les contributeurs d’OpenStreetMap, sous licence ODbL.
 https://www.openstreetmap.org/copyright
 
-Extraits : https://download.geofabrik.de/europe/france.html et
-https://download.openstreetmap.fr/extracts/
-
-Contours des communes : https://geo.api.gouv.fr/
-
-Conserver l’attribution OpenStreetMap avec les données enrichies diffusées.
+Conserver cette attribution lors de la diffusion des données enrichies.
