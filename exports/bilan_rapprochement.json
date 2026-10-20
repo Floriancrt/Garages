@@ -1,0 +1,67 @@
+{
+  "source": "OpenStreetMap — extraits Geofabrik et OpenStreetMap France",
+  "date_donnees_minimale": "2026-10-19T00:22:51Z",
+  "fichier_initial_garages_avec_email": 952,
+  "fichier_corrige_garages_avec_email": 1394,
+  "emails_distincts": 1360,
+  "cellules_email": 1396,
+  "lignes_conservees": 102755,
+  "comparaison": {
+    "baseline_rows_with_email": 952,
+    "revised_rows_with_email": 1394,
+    "newly_enriched_rows": 451,
+    "withdrawn_rows": 9,
+    "net_increase": 442,
+    "methods": {
+      "Nom ou enseigne exacte, établissement unique dans la localité": 119,
+      "Numéro, voie concordante et SIRET compatible": 14,
+      "Nom distinctif concordant, établissement unique dans la localité": 297,
+      "Adresse normalisée exacte et SIRET compatible à la précision du CSV": 518,
+      "Nom et adresse normalisée concordants": 196,
+      "SIRET compatible, nom distinctif et localité concordants": 184,
+      "SIRET compatible, voie et localité concordants": 62,
+      "Nom distinctif, numéro et voie concordants": 4
+    },
+    "coverage_osm": {
+      "automotive_objects": 38970,
+      "automotive_with_active_valid_email": 5449,
+      "repair_objects": 20707,
+      "repair_with_active_valid_email": 2684,
+      "repair_with_website_no_email": 4614
+    }
+  },
+  "candidats_non_attribues": {
+    "lignes_csv_concernees": 895,
+    "candidats": 1178,
+    "emplacement": "onglet À vérifier du classeur, exclus des emails attribués du fichier principal"
+  },
+  "couverture": {
+    "automotive_objects": 38970,
+    "automotive_with_active_valid_email": 5449,
+    "repair_objects": 20707,
+    "repair_with_active_valid_email": 2684,
+    "repair_with_website_no_email": 4614
+  },
+  "verification": {
+    "status": "passed",
+    "rows": 102755,
+    "no_reliable_email_match": 100466,
+    "rows_with_email": 1394,
+    "email_cells": 1396,
+    "rows_with_multiple_emails": 2,
+    "review_without_email": 836,
+    "ambiguous_without_email": 59,
+    "unique_emails": 1360,
+    "review_candidates": 1178,
+    "review_input_rows": 895,
+    "workbook_rows": {
+      "sheet2.xml": 102755,
+      "sheet3.xml": 1394,
+      "sheet4.xml": 1178
+    },
+    "original_sha256": "233f71a63a2a8db7f15119a798b1086496d379a139bd0e369ee782ec53c30b94",
+    "csv_sha256": "6b07bd5a6cd2e557fe94ba2bf75ad98a40b02dde2fcffa3f5eede7fd9efb48fc",
+    "xlsx_sha256": "7dbc86b21a6babae7b2adad82d0838571191984fbabf7154343c22b18570af0c"
+  },
+  "precision": "Overpass consulte OSM. La catégorie shop=car_repair ne correspond pas exactement aux codes NAF du CSV. Les emails ne sont pas vérifiés pour leur délivrabilité."
+}
